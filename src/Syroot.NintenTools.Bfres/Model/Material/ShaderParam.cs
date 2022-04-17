@@ -37,6 +37,8 @@ namespace Syroot.NintenTools.Bfres
 
         public ushort DependIndex { get; set; }
 
+        public int MaterialOffset { get; set; }
+
         /// <summary>
         /// Gets or sets the name with which the instance can be referenced uniquely in
         /// <see cref="ResDict{ShaderParam}"/> instances.
@@ -106,7 +108,7 @@ namespace Syroot.NintenTools.Bfres
                 callbackPointer = loader.ReadUInt32();
                 DependedIndex = loader.ReadUInt16();
                 DependIndex = loader.ReadUInt16();
-                uint FMATOffset = loader.ReadUInt32(); //Why does this have this????
+                MaterialOffset = loader.ReadInt32();
             }
             Name = loader.LoadString();
         }
@@ -129,7 +131,7 @@ namespace Syroot.NintenTools.Bfres
                 saver.Write(callbackPointer); // CallbackPointer
                 saver.Write(DependedIndex);
                 saver.Write(DependIndex);
-                saver.Write(0);
+                saver.Write(MaterialOffset);
             }
 
             saver.SaveString(Name);
